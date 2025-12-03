@@ -1,0 +1,436 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  min-height: 100vh;
+  color: #fff;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+header h1 {
+  font-size: 2.5rem;
+  color: #00d9ff;
+  text-shadow: 0 0 20px rgba(0, 217, 255, 0.5);
+}
+
+/* Formulaire d'ajout */
+.add-user-form {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 25px;
+  margin-bottom: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.add-user-form h2 {
+  margin-bottom: 20px;
+  color: #00d9ff;
+}
+
+#userForm {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: flex-end;
+}
+
+.form-group {
+  flex: 1;
+  min-width: 200px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #a0a0a0;
+  font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #00d9ff;
+  box-shadow: 0 0 10px rgba(0, 217, 255, 0.3);
+}
+
+.form-group select option {
+  background: #1a1a2e;
+  color: #fff;
+}
+
+.btn-add {
+  padding: 12px 30px;
+  background: linear-gradient(135deg, #00d9ff 0%, #0099cc 100%);
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-add:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(0, 217, 255, 0.4);
+}
+
+/* Grille des chronos */
+.timers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+/* Carte de chrono */
+.timer-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 25px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.timer-card.running {
+  border-color: #00ff88;
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
+}
+
+.timer-card.warning {
+  border-color: #ffaa00;
+  box-shadow: 0 0 20px rgba(255, 170, 0, 0.3);
+  animation: pulse-warning 1s infinite;
+}
+
+.timer-card.overtime {
+  border-color: #ff4444;
+  background: rgba(255, 68, 68, 0.2);
+  box-shadow: 0 0 30px rgba(255, 68, 68, 0.4);
+  animation: pulse-danger 0.5s infinite;
+}
+
+@keyframes pulse-warning {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(255, 170, 0, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(255, 170, 0, 0.5);
+  }
+}
+
+@keyframes pulse-danger {
+  0%,
+  100% {
+    box-shadow: 0 0 30px rgba(255, 68, 68, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 50px rgba(255, 68, 68, 0.7);
+  }
+}
+
+.timer-card .user-name {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.timer-card .delete-btn {
+  background: rgba(255, 68, 68, 0.3);
+  border: none;
+  color: #ff6666;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: background 0.3s;
+}
+
+.timer-card .delete-btn:hover {
+  background: rgba(255, 68, 68, 0.6);
+}
+
+.timer-display {
+  font-size: 3rem;
+  font-weight: bold;
+  text-align: center;
+  font-family: "Courier New", monospace;
+  margin: 20px 0;
+  color: #00ff88;
+}
+
+.timer-card.warning .timer-display {
+  color: #ffaa00;
+}
+
+.timer-card.overtime .timer-display {
+  color: #ff4444;
+}
+
+.overtime-label {
+  display: none;
+  text-align: center;
+  color: #ff4444;
+  font-weight: bold;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+.timer-card.overtime .overtime-label {
+  display: block;
+}
+
+.timer-info {
+  display: flex;
+  justify-content: space-between;
+  color: #a0a0a0;
+  font-size: 0.85rem;
+  margin-bottom: 15px;
+}
+
+.timer-controls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.timer-controls button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: bold;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.timer-controls button:hover {
+  transform: scale(1.05);
+}
+
+.btn-start {
+  background: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%);
+  color: #000;
+}
+
+.btn-pause {
+  background: linear-gradient(135deg, #ffaa00 0%, #cc8800 100%);
+  color: #000;
+}
+
+.btn-reset {
+  background: linear-gradient(135deg, #666 0%, #444 100%);
+  color: #fff;
+}
+
+.btn-confirm-timer {
+  background: linear-gradient(135deg, #00d9ff 0%, #0099cc 100%);
+  color: #fff;
+  display: none;
+}
+
+.timer-card.overtime .btn-confirm-timer {
+  display: block;
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal.show {
+  display: flex;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-content {
+  background: linear-gradient(135deg, #2a2a4a 0%, #1a1a2e 100%);
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  border: 2px solid #ff4444;
+  box-shadow: 0 0 50px rgba(255, 68, 68, 0.5);
+  animation: shake 0.5s ease infinite;
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+.modal-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  animation: ring 0.5s infinite;
+}
+
+@keyframes ring {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(15deg);
+  }
+  75% {
+    transform: rotate(-15deg);
+  }
+}
+
+.modal h2 {
+  color: #ff4444;
+  margin-bottom: 15px;
+  font-size: 1.8rem;
+}
+
+.modal p {
+  color: #a0a0a0;
+  margin-bottom: 25px;
+  font-size: 1.1rem;
+}
+
+.btn-confirm {
+  padding: 15px 40px;
+  background: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%);
+  border: none;
+  border-radius: 10px;
+  color: #000;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-confirm:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 25px rgba(0, 255, 136, 0.5);
+}
+
+/* Status badge */
+.status-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 15px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.status-badge.running {
+  background: rgba(0, 255, 136, 0.2);
+  color: #00ff88;
+}
+
+.status-badge.paused {
+  background: rgba(255, 170, 0, 0.2);
+  color: #ffaa00;
+}
+
+.status-badge.overtime {
+  background: rgba(255, 68, 68, 0.2);
+  color: #ff4444;
+}
+
+.status-badge.stopped {
+  background: rgba(150, 150, 150, 0.2);
+  color: #999;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 1.8rem;
+  }
+
+  #userForm {
+    flex-direction: column;
+  }
+
+  .form-group {
+    width: 100%;
+  }
+
+  .timer-display {
+    font-size: 2.5rem;
+  }
+}
+
+/* Empty state */
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
+}
+
+.empty-state .icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+}
+
+.empty-state p {
+  font-size: 1.2rem;
+}
